@@ -1,4 +1,4 @@
-# Frequently Asked Questions
+# README
 
 ## What is the Telephone Game Network Simulation?
 

@@ -419,7 +419,7 @@ class TelephoneNetwork {
     
     async loadFAQ() {
         try {
-            const response = await fetch('faq.md');
+            const response = await fetch('README.md');
             const markdownText = await response.text();
             const htmlContent = this.convertMarkdownToHTML(markdownText);
             document.getElementById('faq-content').innerHTML = htmlContent;
