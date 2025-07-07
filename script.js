@@ -26,7 +26,7 @@ class TelephoneNetwork {
         });
         
         this.canvas.addEventListener('click', (e) => this.handleCanvasClick(e));
-        this.canvas.addEventListener('touchstart', (e) => this.handleCanvasClick(e));
+        this.canvas.addEventListener('touchend', (e) => this.handleCanvasTouch(e));
     }
     
     reset() {
@@ -282,14 +282,27 @@ class TelephoneNetwork {
     }
     
     handleCanvasClick(event) {
+        const rect = this.canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        
+        this.selectNodeAtPosition(x, y);
+    }
+    
+    handleCanvasTouch(event) {
         event.preventDefault();
         const rect = this.canvas.getBoundingClientRect();
-        const x = (event.clientX || event.touches[0].clientX) - rect.left;
-        const y = (event.clientY || event.touches[0].clientY) - rect.top;
+        const touch = event.changedTouches[0];
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
         
+        this.selectNodeAtPosition(x, y);
+    }
+    
+    selectNodeAtPosition(x, y) {
         const clickedNode = this.nodes.find(node => {
             const distance = Math.sqrt(Math.pow(x - node.x, 2) + Math.pow(y - node.y, 2));
-            return distance <= 15;
+            return distance <= 20; // Increased touch target size
         });
         
         if (clickedNode) {
