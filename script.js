@@ -436,6 +436,8 @@ class TelephoneNetwork {
             .replace(/^### (.*$)/gm, '<h3>$1</h3>')
             .replace(/^## (.*$)/gm, '<h2>$1</h2>')
             .replace(/^# (.*$)/gm, '<h1>$1</h1>')
+            // Links
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
             // Bold
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
             // Italic
