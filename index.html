@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telephone Game Network Simulation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Telephone Game Network Simulation</h1>
+            <p>Visualize how messages change as they pass through a network of nodes</p>
+        </header>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="generations">Generations (T):</label>
+                <input type="number" id="generations" min="2" max="10" value="5">
+            </div>
+            
+            <div class="control-group">
+                <label for="nodes-per-generation">Nodes per generation (N):</label>
+                <input type="number" id="nodes-per-generation" min="1" max="10" value="3">
+            </div>
+            
+            <div class="control-group">
+                <label for="connections">Connections per node (K):</label>
+                <input type="number" id="connections" min="1" max="10" value="2">
+            </div>
+            
+            <div class="control-group">
+                <label for="corruption">Corruption probability:</label>
+                <input type="range" id="corruption" min="0" max="1" step="0.1" value="0.2">
+                <span id="corruption-value">0.2</span>
+            </div>
+            
+            <div class="control-group message-group">
+                <label for="message">Original message:</label>
+                <textarea id="message" rows="3" placeholder="Enter your message here...">The quick brown fox jumps over the lazy dog</textarea>
+            </div>
+            
+            <div class="control-group">
+                <button id="start-btn">Start Simulation</button>
+                <button id="reset-btn">Reset</button>
+            </div>
+        </div>
+        
+        <div class="visualization">
+            <canvas id="network-canvas" width="1000" height="600"></canvas>
+        </div>
+        
+        <div class="legend">
+            <h3>Legend</h3>
+            <div class="legend-item">
+                <div class="color-box" style="background-color: #4CAF50;"></div>
+                <span>High accuracy (80-100%)</span>
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background-color: #FFC107;"></div>
+                <span>Medium accuracy (50-80%)</span>
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background-color: #FF9800;"></div>
+                <span>Low accuracy (20-50%)</span>
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background-color: #F44336;"></div>
+                <span>Very low accuracy (0-20%)</span>
+            </div>
+        </div>
+        
+        <div class="message-display">
+            <h3>Selected Node Message</h3>
+            <div id="selected-message">Click a node to see its message</div>
+            <div id="message-accuracy"></div>
+        </div>
+        
+        <div class="error-distribution">
+            <h3>Final Generation Error Distribution</h3>
+            <table id="error-table">
+                <thead>
+                    <tr>
+                        <th>Error Count</th>
+                        <th>Nodes (%)</th>
+                    </tr>
+                </thead>
+                <tbody id="error-table-body">
+                    <tr>
+                        <td colspan="2">Run simulation to see results</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="variant-distribution">
+            <h3>Transmission Variant Error Distribution</h3>
+            <p id="variant-summary">Total variants: 0</p>
+            <table id="variant-table">
+                <thead>
+                    <tr>
+                        <th>Error Count</th>
+                        <th>Variants (%)</th>
+                    </tr>
+                </thead>
+                <tbody id="variant-table-body">
+                    <tr>
+                        <td colspan="2">Run simulation to see results</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

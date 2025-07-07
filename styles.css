@@ -1,0 +1,267 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #7f8c8d;
+    font-size: 1.1em;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.control-group label {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.control-group input {
+    padding: 8px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.control-group input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.control-group input[type="range"] {
+    width: 150px;
+}
+
+.message-group {
+    flex: 1;
+    min-width: 300px;
+}
+
+.message-group textarea {
+    width: 100%;
+    min-height: 60px;
+    resize: both;
+    font-family: inherit;
+    font-size: 14px;
+    padding: 8px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.message-group textarea:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.control-group button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+#start-btn {
+    background-color: #27ae60;
+    color: white;
+}
+
+#start-btn:hover {
+    background-color: #219a52;
+}
+
+#reset-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+#reset-btn:hover {
+    background-color: #c0392b;
+}
+
+.visualization {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#network-canvas {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.legend {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.legend h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.color-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+}
+
+.message-display {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.message-display h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+#selected-message {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 4px solid #3498db;
+    margin-bottom: 10px;
+    font-family: monospace;
+    word-wrap: break-word;
+}
+
+#message-accuracy {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+@media (max-width: 768px) {
+    .controls {
+        flex-direction: column;
+    }
+    
+    .control-group {
+        width: 100%;
+    }
+    
+    #network-canvas {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.error-distribution {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.variant-distribution {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.error-distribution h3,
+.variant-distribution h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+#variant-summary {
+    color: #7f8c8d;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+#error-table,
+#variant-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#error-table th,
+#error-table td,
+#variant-table th,
+#variant-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#error-table th,
+#variant-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+#error-table tr:hover,
+#variant-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+#error-table td[colspan="2"],
+#variant-table td[colspan="2"] {
+    text-align: center;
+    color: #7f8c8d;
+    font-style: italic;
+}
