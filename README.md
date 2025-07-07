@@ -42,4 +42,4 @@ Yes! You can edit the "Original message" text box to use any message you want to
 
 ## Have a suggestion?
 
-Email me at edward.kung@gmail.com.
+Create an [issue](https://github.com/ed-kung/telephone/issues) on Github!
