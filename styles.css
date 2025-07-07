@@ -72,6 +72,8 @@ header p {
 .message-group {
     flex: 1;
     min-width: 300px;
+    width: 100%;
+    flex-basis: 100%;
 }
 
 .message-group textarea {
@@ -189,6 +191,29 @@ header p {
     color: #2c3e50;
 }
 
+#received-messages {
+    margin-top: 15px;
+}
+
+#received-messages h4 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.received-message {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    border-left: 4px solid #e74c3c;
+    margin-bottom: 8px;
+    font-family: monospace;
+    word-wrap: break-word;
+}
+
+.received-message strong {
+    color: #2c3e50;
+}
+
 @media (max-width: 768px) {
     .controls {
         flex-direction: column;
@@ -264,4 +289,60 @@ header p {
     text-align: center;
     color: #7f8c8d;
     font-style: italic;
+}
+
+.faq-section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.faq-section h1 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.faq-section h2 {
+    color: #2c3e50;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.faq-section h3 {
+    color: #34495e;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+.faq-section p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.faq-section ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.faq-section li {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 5px;
+}
+
+.faq-section strong {
+    color: #2c3e50;
+}
+
+.faq-section code {
+    background-color: #f8f9fa;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    color: #e74c3c;
 }

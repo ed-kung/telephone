@@ -16,17 +16,17 @@
         <div class="controls">
             <div class="control-group">
                 <label for="generations">Generations (T):</label>
-                <input type="number" id="generations" min="2" max="10" value="5">
+                <input type="number" id="generations" min="2" max="10" value="10">
             </div>
             
             <div class="control-group">
                 <label for="nodes-per-generation">Nodes per generation (N):</label>
-                <input type="number" id="nodes-per-generation" min="1" max="10" value="3">
+                <input type="number" id="nodes-per-generation" min="1" max="10" value="5">
             </div>
             
             <div class="control-group">
                 <label for="connections">Connections per node (K):</label>
-                <input type="number" id="connections" min="1" max="10" value="2">
+                <input type="number" id="connections" min="1" max="10" value="5">
             </div>
             
             <div class="control-group">
@@ -37,7 +37,7 @@
             
             <div class="control-group message-group">
                 <label for="message">Original message:</label>
-                <textarea id="message" rows="3" placeholder="Enter your message here...">The quick brown fox jumps over the lazy dog</textarea>
+                <textarea id="message" rows="3" placeholder="Enter your message here...">In the beginning, God created the heavens and the earth.</textarea>
             </div>
             
             <div class="control-group">
@@ -74,10 +74,11 @@
             <h3>Selected Node Message</h3>
             <div id="selected-message">Click a node to see its message</div>
             <div id="message-accuracy"></div>
+            <div id="received-messages"></div>
         </div>
         
         <div class="error-distribution">
-            <h3>Final Generation Error Distribution</h3>
+            <h3>Final Message Error Distribution</h3>
             <table id="error-table">
                 <thead>
                     <tr>
@@ -109,6 +110,12 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+        
+        <div class="faq-section">
+            <div id="faq-content">
+                <p>Loading FAQ...</p>
+            </div>
         </div>
     </div>
     

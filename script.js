@@ -5,14 +5,15 @@ class TelephoneNetwork {
         this.nodes = [];
         this.connections = [];
         this.transmissionVariants = new Set();
-        this.generations = 5;
-        this.nodesPerGeneration = 3;
-        this.connectionsPerNode = 2;
+        this.generations = 10;
+        this.nodesPerGeneration = 1;
+        this.connectionsPerNode = 1;
         this.corruptionProbability = 0.2;
-        this.originalMessage = "The quick brown fox jumps over the lazy dog";
+        this.originalMessage = "In the beginning, God created the heavens and the earth.";
         this.selectedNode = null;
         
         this.setupEventListeners();
+        this.loadFAQ();
     }
     
     setupEventListeners() {
@@ -32,25 +33,40 @@ class TelephoneNetwork {
         this.connections = [];
         this.transmissionVariants = new Set();
         this.selectedNode = null;
+        this.updateCanvasSize();
         this.clearCanvas();
         document.getElementById('selected-message').textContent = 'Click a node to see its message';
         document.getElementById('message-accuracy').textContent = '';
+        document.getElementById('received-messages').innerHTML = '';
         this.clearErrorTable();
         this.clearVariantTable();
     }
     
     startSimulation() {
-        this.reset();
         this.generations = parseInt(document.getElementById('generations').value);
         this.nodesPerGeneration = parseInt(document.getElementById('nodes-per-generation').value);
         this.connectionsPerNode = parseInt(document.getElementById('connections').value);
         this.originalMessage = document.getElementById('message').value;
         
+        this.reset();
         this.generateNetwork();
         this.simulateTransmission();
         this.drawNetwork();
         this.updateErrorDistribution();
         this.updateVariantDistribution();
+    }
+    
+    updateCanvasSize() {
+        const maxCanvasHeight = 600; // Original maximum height
+        const margin = 50;
+        
+        // Calculate dynamic height based on maximum nodes per generation
+        const maxNodesInAnyGeneration = Math.max(1, this.nodesPerGeneration);
+        const nodeSpacing = 80; // Minimum spacing between nodes
+        const dynamicHeight = Math.min(maxCanvasHeight, Math.max(200, maxNodesInAnyGeneration * nodeSpacing + 2 * margin));
+        
+        // Update canvas height
+        this.canvas.height = dynamicHeight;
     }
     
     generateNetwork() {
@@ -156,7 +172,6 @@ class TelephoneNetwork {
             () => word.slice(0, -1),
             () => word + this.getRandomChar(),
             () => word.split('').sort(() => 0.5 - Math.random()).join(''),
-            () => this.getRandomWord(),
             () => word.replace(/[aeiou]/g, this.getRandomChar())
         ];
         
@@ -286,6 +301,22 @@ class TelephoneNetwork {
         document.getElementById('selected-message').textContent = node.message || 'No message';
         document.getElementById('message-accuracy').textContent = 
             `Accuracy: ${(node.accuracy * 100).toFixed(1)}% | Generation: ${node.generation} | Node ID: ${node.id}`;
+        
+        const receivedMessagesDiv = document.getElementById('received-messages');
+        if (node.receivedMessages && node.receivedMessages.length > 0) {
+            receivedMessagesDiv.innerHTML = `
+                <h4>Received Messages (${node.receivedMessages.length}):</h4>
+                ${node.receivedMessages.map((msg, index) => `
+                    <div class="received-message">
+                        <strong>Message ${index + 1}:</strong> ${msg}
+                    </div>
+                `).join('')}
+            `;
+        } else {
+            receivedMessagesDiv.innerHTML = node.generation === 0 ? 
+                '<h4>Original Message Source</h4>' : 
+                '<h4>No messages received</h4>';
+        }
     }
     
     clearCanvas() {
@@ -384,6 +415,48 @@ class TelephoneNetwork {
         document.getElementById('variant-summary').textContent = 'Total variants: 0';
         const tableBody = document.getElementById('variant-table-body');
         tableBody.innerHTML = '<tr><td colspan="2">Run simulation to see results</td></tr>';
+    }
+    
+    async loadFAQ() {
+        try {
+            const response = await fetch('faq.md');
+            const markdownText = await response.text();
+            const htmlContent = this.convertMarkdownToHTML(markdownText);
+            document.getElementById('faq-content').innerHTML = htmlContent;
+        } catch (error) {
+            console.error('Error loading FAQ:', error);
+            document.getElementById('faq-content').innerHTML = '<p>Error loading FAQ content.</p>';
+        }
+    }
+    
+    convertMarkdownToHTML(markdown) {
+        // Simple markdown to HTML conversion
+        let html = markdown
+            // Headers
+            .replace(/^### (.*$)/gm, '<h3>$1</h3>')
+            .replace(/^## (.*$)/gm, '<h2>$1</h2>')
+            .replace(/^# (.*$)/gm, '<h1>$1</h1>')
+            // Bold
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            // Italic
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            // Code
+            .replace(/`(.*?)`/g, '<code>$1</code>')
+            // Line breaks
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n/g, '<br>');
+        
+        // Wrap in paragraphs
+        html = '<p>' + html + '</p>';
+        
+        // Clean up empty paragraphs and fix header paragraphs
+        html = html
+            .replace(/<p><\/p>/g, '')
+            .replace(/<p>(<h[1-6]>.*?<\/h[1-6]>)<\/p>/g, '$1')
+            .replace(/<p>(<h[1-6]>.*?<\/h[1-6]>)<br>/g, '$1')
+            .replace(/<br><\/p>/g, '</p>');
+        
+        return html;
     }
 }
 
