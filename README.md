@@ -23,14 +23,9 @@ Messages can be corrupted in several ways:
 
 When a node receives multiple messages, it uses a "majority vote" system to reconstruct the message. For each word position, it picks the most frequently received word at that position.
 
-## What do the colors mean?
+## How is accuracy calculated?
 
-The colors represent accuracy of the node's reconstructed message, calculated as the percentage of words that in the message that are accurate.
-
-- **Green**: High accuracy (80-100%)
-- **Yellow**: Medium accuracy (50-80%)  
-- **Orange**: Low accuracy (20-50%)
-- **Red**: Very low accuracy (0-20%)
+Accuracy is the percentage of words at each word position that are the same as in the original message.
 
 ## What's the difference between "Final Message Error Distribution" and "Transmission Variant Error Distribution"?
 
@@ -44,3 +39,7 @@ Node 0 represents the original message source, so it transmits the message perfe
 ## Can I use my own message?
 
 Yes! You can edit the "Original message" text box to use any message you want to test how it degrades through the network.
+
+## Have a suggestion?
+
+Email me at edward.kung@gmail.com.
