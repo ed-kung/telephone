@@ -26,6 +26,7 @@ class TelephoneNetwork {
         });
         
         this.canvas.addEventListener('click', (e) => this.handleCanvasClick(e));
+        this.canvas.addEventListener('touchstart', (e) => this.handleCanvasClick(e));
     }
     
     reset() {
@@ -281,9 +282,10 @@ class TelephoneNetwork {
     }
     
     handleCanvasClick(event) {
+        event.preventDefault();
         const rect = this.canvas.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
+        const x = (event.clientX || event.touches[0].clientX) - rect.left;
+        const y = (event.clientY || event.touches[0].clientY) - rect.top;
         
         const clickedNode = this.nodes.find(node => {
             const distance = Math.sqrt(Math.pow(x - node.x, 2) + Math.pow(y - node.y, 2));
