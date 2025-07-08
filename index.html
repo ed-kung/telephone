@@ -14,6 +14,13 @@
         </header>
         
         <div class="controls">
+            <div class="explanation-toggle">
+                <button id="how-it-works-btn">How it works</button>
+                <div id="explanation-content" class="explanation-content">
+                    <p>A message passes through T generations of nodes, with N nodes per generation. At each transmission, words in the message get corrupted with probability p. A node receives messages from the previous generation, tries to reconstruct the original message, then passes its reconstructed message to K nodes in the next generation.</p>
+                </div>
+            </div>
+            
             <div class="control-group">
                 <label for="generations">Generations (T):</label>
                 <input type="number" id="generations" min="2" max="10" value="10">
@@ -30,7 +37,7 @@
             </div>
             
             <div class="control-group">
-                <label for="corruption">Corruption probability:</label>
+                <label for="corruption">Corruption probability (p):</label>
                 <input type="range" id="corruption" min="0" max="1" step="0.1" value="0.2">
                 <span id="corruption-value">0.2</span>
             </div>
@@ -79,6 +86,9 @@
         
         <div class="error-distribution">
             <h3>Final Message Error Distribution</h3>
+            <div class="small-text">
+                <p>What is the error rate of the final nodes' reconstructed messages?</p>
+            </div>
             <table id="error-table">
                 <thead>
                     <tr>
@@ -96,6 +106,9 @@
         
         <div class="variant-distribution">
             <h3>Transmission Variant Error Distribution</h3>
+            <div class="small-text">
+                <p>How many different unique messages (variants) were transmitted?</p>
+            </div>
             <p id="variant-summary">Total variants: 0</p>
             <table id="variant-table">
                 <thead>
