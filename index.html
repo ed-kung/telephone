@@ -15,10 +15,7 @@
         
         <div class="controls">
             <div class="explanation-toggle">
-                <button id="how-it-works-btn">How it works</button>
-                <div id="explanation-content" class="explanation-content">
-                    <p>A message passes through T generations of nodes, with N nodes per generation. At each transmission, words in the message get corrupted with probability p. A node receives messages from the previous generation, tries to reconstruct the original message, then passes its reconstructed message to K nodes in the next generation.</p>
-                </div>
+                <a href="#faq-content" id="how-it-works-link">How it works</a>
             </div>
             
             <div class="control-group">
@@ -86,9 +83,6 @@
         
         <div class="error-distribution">
             <h3>Final Message Error Distribution</h3>
-            <div class="small-text">
-                <p>What is the error rate of the final nodes' reconstructed messages?</p>
-            </div>
             <table id="error-table">
                 <thead>
                     <tr>
@@ -106,9 +100,6 @@
         
         <div class="variant-distribution">
             <h3>Transmission Variant Error Distribution</h3>
-            <div class="small-text">
-                <p>How many different unique messages (variants) were transmitted?</p>
-            </div>
             <p id="variant-summary">Total variants: 0</p>
             <table id="variant-table">
                 <thead>

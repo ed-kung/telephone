@@ -1,15 +1,15 @@
-# README
-
 ## What is the Telephone Game Network Simulation?
 
 This simulation models how messages degrade as they pass through a network of nodes, similar to the classic "telephone game" where a message is whispered from person to person and changes along the way. It shows that a high number of textual variants among transmitted copies does not necessarily mean the original message cannot be accurately reconstructed.
 
 ## How do the parameters work?
 
-- **Generations (T)**: The number of levels or "hops" in the network
+Like a telephone game, each node (player) receives messages from previous nodes in the chain, then they try to reconstruct the original message as best they can, then they forward their reconstructed message to the next nodes in the chain.
+
+- **Generations (T)**: The length of the chain, i.e. how many hops in the network
 - **Nodes per generation (N)**: How many nodes exist at each level (except the first, which always has 1 node)
-- **Connections per node (K)**: How many nodes each node transmits a message to in the next generation
-- **Corruption probability**: The likelihood that each word gets corrupted during transmission
+- **Connections per node (K)**: How many nodes each node transmits their message to in the next generation
+- **Corruption probability (p)**: The likelihood that each word gets corrupted during transmission
 
 ## What happens to messages during transmission?
 
@@ -19,7 +19,7 @@ Messages can be corrupted in several ways:
 - Letters scrambled within words
 - Vowels replaced with random letters
 
-## How do nodes with multiple inputs work?
+## How do nodes reconstruct the message from multiple inputs?
 
 When a node receives multiple messages, it uses a "majority vote" system to reconstruct the message. For each word position, it picks the most frequently received word at that position.
 
@@ -27,14 +27,15 @@ When a node receives multiple messages, it uses a "majority vote" system to reco
 
 Accuracy is the percentage of words at each word position that are the same as in the original message.
 
-## What's the difference between "Final Message Error Distribution" and "Transmission Variant Error Distribution"?
+## What is "Final Message Error Distribution"?
 
-- **Final Message Error Distribution**: Shows how many errors are in the final reconstructed messages at the last generation
-- **Transmission Variant Error Distribution**: Shows how many errors are in all the unique message variants that were transmitted between nodes (excluding the original transmission from node 0)
+This shows the error rate of the reconstructed messages at the last generation of nodes.
 
-## Why doesn't node 0 corrupt messages to generation 1?
+## What is "Transmission Variant Error Distribution"?
 
-Node 0 represents the original message source, so it transmits the message perfectly to the first generation. Corruption only happens in subsequent transmissions.
+A transmission variant is any unique message that ever gets transmitted between two nodes. Each unique message is counted as a single variant, so the original message is a one variant, then every unique corruption of the message is its own variant.
+
+The transmission variant error distribution shows the number of unique variants ever transmitted, and the distribution of errors among those variants.
 
 ## Can I use my own message?
 

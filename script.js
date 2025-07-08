@@ -25,24 +25,11 @@ class TelephoneNetwork {
             document.getElementById('corruption-value').textContent = this.corruptionProbability;
         });
         
-        document.getElementById('how-it-works-btn').addEventListener('click', () => this.toggleExplanation());
         
         this.canvas.addEventListener('click', (e) => this.handleCanvasClick(e));
         this.canvas.addEventListener('touchend', (e) => this.handleCanvasTouch(e));
     }
     
-    toggleExplanation() {
-        const content = document.getElementById('explanation-content');
-        const button = document.getElementById('how-it-works-btn');
-        
-        if (content.classList.contains('show')) {
-            content.classList.remove('show');
-            button.textContent = 'How it works';
-        } else {
-            content.classList.add('show');
-            button.textContent = 'Hide explanation';
-        }
-    }
     
     reset() {
         this.nodes = [];
