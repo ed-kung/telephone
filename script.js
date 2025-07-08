@@ -283,8 +283,10 @@ class TelephoneNetwork {
     
     handleCanvasClick(event) {
         const rect = this.canvas.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
+        const scaleX = this.canvas.width / rect.width;
+        const scaleY = this.canvas.height / rect.height;
+        const x = (event.clientX - rect.left) * scaleX;
+        const y = (event.clientY - rect.top) * scaleY;
         
         this.selectNodeAtPosition(x, y);
     }
@@ -293,22 +295,30 @@ class TelephoneNetwork {
         event.preventDefault();
         const rect = this.canvas.getBoundingClientRect();
         const touch = event.changedTouches[0];
-        const x = touch.clientX - rect.left;
-        const y = touch.clientY - rect.top;
+        const scaleX = this.canvas.width / rect.width;
+        const scaleY = this.canvas.height / rect.height;
+        const x = (touch.clientX - rect.left) * scaleX;
+        const y = (touch.clientY - rect.top) * scaleY;
         
         this.selectNodeAtPosition(x, y);
     }
     
     selectNodeAtPosition(x, y) {
+        console.log(`Touch/click at: (${x.toFixed(1)}, ${y.toFixed(1)})`);
+        
         const clickedNode = this.nodes.find(node => {
             const distance = Math.sqrt(Math.pow(x - node.x, 2) + Math.pow(y - node.y, 2));
+            console.log(`Node ${node.id} at (${node.x.toFixed(1)}, ${node.y.toFixed(1)}), distance: ${distance.toFixed(1)}`);
             return distance <= 20; // Increased touch target size
         });
         
         if (clickedNode) {
+            console.log(`Selected node: ${clickedNode.id}`);
             this.selectedNode = clickedNode;
             this.displayNodeInfo(clickedNode);
             this.drawNetwork();
+        } else {
+            console.log('No node selected');
         }
     }
     
