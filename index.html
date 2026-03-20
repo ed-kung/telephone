@@ -46,70 +46,76 @@
             </div>
         </div>
         
-        <div class="visualization">
-            <canvas id="network-canvas" width="1000" height="600"></canvas>
-        </div>
-        
-        <div class="legend">
-            <h3>Legend</h3>
-            <div class="legend-item">
-                <div class="color-box" style="background-color: #4CAF50;"></div>
-                <span>High accuracy (80-100%)</span>
+        <div class="main-content">
+            <div class="left-column">
+                <div class="visualization">
+                    <canvas id="network-canvas" width="1000" height="600"></canvas>
+                </div>
+
+                <div class="legend">
+                    <h3>Legend</h3>
+                    <div class="legend-item">
+                        <div class="color-box" style="background-color: #4CAF50;"></div>
+                        <span>High accuracy (80-100%)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background-color: #FFC107;"></div>
+                        <span>Medium accuracy (50-80%)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background-color: #FF9800;"></div>
+                        <span>Low accuracy (20-50%)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background-color: #F44336;"></div>
+                        <span>Very low accuracy (0-20%)</span>
+                    </div>
+                </div>
             </div>
-            <div class="legend-item">
-                <div class="color-box" style="background-color: #FFC107;"></div>
-                <span>Medium accuracy (50-80%)</span>
+
+            <div class="right-column">
+                <div class="message-display">
+                    <h3>Selected Node Message</h3>
+                    <div id="selected-message">Click a node to see its message</div>
+                    <div id="message-accuracy"></div>
+                    <div id="received-messages"></div>
+                </div>
+
+                <div class="error-distribution">
+                    <h3>Final Message Error Distribution</h3>
+                    <table id="error-table">
+                        <thead>
+                            <tr>
+                                <th>Error Count</th>
+                                <th>Nodes (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="error-table-body">
+                            <tr>
+                                <td colspan="2">Run simulation to see results</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="variant-distribution">
+                    <h3>Transmission Variant Error Distribution</h3>
+                    <p id="variant-summary">Total variants: 0</p>
+                    <table id="variant-table">
+                        <thead>
+                            <tr>
+                                <th>Error Count</th>
+                                <th>Variants (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="variant-table-body">
+                            <tr>
+                                <td colspan="2">Run simulation to see results</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="legend-item">
-                <div class="color-box" style="background-color: #FF9800;"></div>
-                <span>Low accuracy (20-50%)</span>
-            </div>
-            <div class="legend-item">
-                <div class="color-box" style="background-color: #F44336;"></div>
-                <span>Very low accuracy (0-20%)</span>
-            </div>
-        </div>
-        
-        <div class="message-display">
-            <h3>Selected Node Message</h3>
-            <div id="selected-message">Click a node to see its message</div>
-            <div id="message-accuracy"></div>
-            <div id="received-messages"></div>
-        </div>
-        
-        <div class="error-distribution">
-            <h3>Final Message Error Distribution</h3>
-            <table id="error-table">
-                <thead>
-                    <tr>
-                        <th>Error Count</th>
-                        <th>Nodes (%)</th>
-                    </tr>
-                </thead>
-                <tbody id="error-table-body">
-                    <tr>
-                        <td colspan="2">Run simulation to see results</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="variant-distribution">
-            <h3>Transmission Variant Error Distribution</h3>
-            <p id="variant-summary">Total variants: 0</p>
-            <table id="variant-table">
-                <thead>
-                    <tr>
-                        <th>Error Count</th>
-                        <th>Variants (%)</th>
-                    </tr>
-                </thead>
-                <tbody id="variant-table-body">
-                    <tr>
-                        <td colspan="2">Run simulation to see results</td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
         
         <div class="faq-section">

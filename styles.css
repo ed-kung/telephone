@@ -263,6 +263,28 @@ header p {
     color: #2c3e50;
 }
 
+@media (min-width: 769px) {
+    .container {
+        max-width: 1400px;
+    }
+
+    .main-content {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    .left-column {
+        width: 50%;
+        flex-shrink: 0;
+    }
+
+    .right-column {
+        width: 50%;
+        flex-shrink: 0;
+    }
+}
+
 @media (max-width: 768px) {
     .controls {
         flex-direction: column;
