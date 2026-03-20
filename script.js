@@ -55,8 +55,8 @@ class TelephoneNetwork {
         if (n < 1) {
             nError.textContent = 'N must be at least 1';
             valid = false;
-        } else if (n > 20) {
-            nError.textContent = 'N cannot be greater than 20';
+        } else if (n > 30) {
+            nError.textContent = 'N cannot be greater than 30';
             valid = false;
         } else {
             nError.textContent = '';
@@ -65,8 +65,8 @@ class TelephoneNetwork {
         if (k < 1) {
             kError.textContent = 'K must be at least 1';
             valid = false;
-        } else if (k > 20) {
-            kError.textContent = 'K cannot be greater than 20';
+        } else if (k > 30) {
+            kError.textContent = 'K cannot be greater than 30';
             valid = false;
         } else if (k > n) {
             kError.textContent = 'K cannot be greater than N';
