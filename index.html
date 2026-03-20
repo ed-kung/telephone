@@ -19,11 +19,6 @@
             </div>
             
             <div class="control-group">
-                <label for="generations">Generations (T):</label>
-                <input type="number" id="generations" min="2" max="10" value="10">
-            </div>
-            
-            <div class="control-group">
                 <label for="nodes-per-generation">Nodes per generation (N):</label>
                 <input type="number" id="nodes-per-generation" min="1" max="10" value="5">
             </div>
@@ -44,8 +39,9 @@
                 <textarea id="message" rows="3" placeholder="Enter your message here...">In the beginning, God created the heavens and the earth.</textarea>
             </div>
             
-            <div class="control-group">
+            <div class="control-group button-group">
                 <button id="start-btn">Start Simulation</button>
+                <button id="next-gen-btn" style="display:none">Next Generation</button>
                 <button id="reset-btn">Reset</button>
             </div>
         </div>
