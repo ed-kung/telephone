@@ -192,6 +192,15 @@ class TelephoneNetwork {
             }
         });
 
+        // Ensure every new node has at least one incoming connection
+        newGenNodes.forEach(node => {
+            const hasIncoming = this.connections.some(conn => conn.to === node);
+            if (!hasIncoming) {
+                const randomPrev = prevGenNodes[Math.floor(Math.random() * prevGenNodes.length)];
+                this.connections.push({ from: randomPrev, to: node });
+            }
+        });
+
         // Simulate transmission for new generation only
         newGenNodes.forEach(node => {
             const incomingConnections = this.connections.filter(conn => conn.to === node);
