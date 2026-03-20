@@ -187,11 +187,6 @@ class TelephoneNetwork {
         return chars[Math.floor(Math.random() * chars.length)];
     }
     
-    getRandomWord() {
-        const words = ['cat', 'dog', 'bird', 'fish', 'tree', 'rock', 'sky', 'sun', 'moon', 'star'];
-        return words[Math.floor(Math.random() * words.length)];
-    }
-    
     reconstructMessage(receivedMessages) {
         if (receivedMessages.length === 0) return '';
         if (receivedMessages.length === 1) return receivedMessages[0];
@@ -306,21 +301,15 @@ class TelephoneNetwork {
     }
     
     selectNodeAtPosition(x, y) {
-        console.log(`Touch/click at: (${x.toFixed(1)}, ${y.toFixed(1)})`);
-        
         const clickedNode = this.nodes.find(node => {
             const distance = Math.sqrt(Math.pow(x - node.x, 2) + Math.pow(y - node.y, 2));
-            console.log(`Node ${node.id} at (${node.x.toFixed(1)}, ${node.y.toFixed(1)}), distance: ${distance.toFixed(1)}`);
             return distance <= 20; // Increased touch target size
         });
-        
+
         if (clickedNode) {
-            console.log(`Selected node: ${clickedNode.id}`);
             this.selectedNode = clickedNode;
             this.displayNodeInfo(clickedNode);
             this.drawNetwork();
-        } else {
-            console.log('No node selected');
         }
     }
     
@@ -448,44 +437,10 @@ class TelephoneNetwork {
         try {
             const response = await fetch('README.md');
             const markdownText = await response.text();
-            const htmlContent = this.convertMarkdownToHTML(markdownText);
-            document.getElementById('faq-content').innerHTML = htmlContent;
+            document.getElementById('faq-content').innerHTML = marked.parse(markdownText);
         } catch (error) {
-            console.error('Error loading FAQ:', error);
             document.getElementById('faq-content').innerHTML = '<p>Error loading FAQ content.</p>';
         }
-    }
-    
-    convertMarkdownToHTML(markdown) {
-        // Simple markdown to HTML conversion
-        let html = markdown
-            // Headers
-            .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-            .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-            .replace(/^# (.*$)/gm, '<h1>$1</h1>')
-            // Links
-            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
-            // Bold
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            // Italic
-            .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            // Code
-            .replace(/`(.*?)`/g, '<code>$1</code>')
-            // Line breaks
-            .replace(/\n\n/g, '</p><p>')
-            .replace(/\n/g, '<br>');
-        
-        // Wrap in paragraphs
-        html = '<p>' + html + '</p>';
-        
-        // Clean up empty paragraphs and fix header paragraphs
-        html = html
-            .replace(/<p><\/p>/g, '')
-            .replace(/<p>(<h[1-6]>.*?<\/h[1-6]>)<\/p>/g, '$1')
-            .replace(/<p>(<h[1-6]>.*?<\/h[1-6]>)<br>/g, '$1')
-            .replace(/<br><\/p>/g, '</p>');
-        
-        return html;
     }
 }
 
