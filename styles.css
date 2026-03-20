@@ -195,7 +195,7 @@ header p {
 
 .node-tooltip {
     display: none;
-    position: absolute;
+    position: fixed;
     background: rgba(44, 62, 80, 0.95);
     color: white;
     padding: 8px 12px;

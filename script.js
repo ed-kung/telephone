@@ -424,17 +424,26 @@ class TelephoneNetwork {
 
     showTooltip(node, event) {
         const tooltip = document.getElementById('node-tooltip');
-        const vizRect = this.canvas.parentElement.getBoundingClientRect();
-        const x = event.clientX - vizRect.left + 15;
-        const y = event.clientY - vizRect.top + 15;
 
         const accuracy = (node.accuracy * 100).toFixed(1);
         const message = node.message || 'No message';
         const color = this.getNodeColor(node.accuracy);
         tooltip.innerHTML = `${message}<div class="tooltip-accuracy" style="color:${color}">Accuracy: ${accuracy}%</div>`;
+        tooltip.style.display = 'block';
+
+        const tooltipRect = tooltip.getBoundingClientRect();
+        let x = event.clientX + 15;
+        let y = event.clientY + 15;
+
+        if (x + tooltipRect.width > window.innerWidth) {
+            x = event.clientX - tooltipRect.width - 15;
+        }
+        if (y + tooltipRect.height > window.innerHeight) {
+            y = event.clientY - tooltipRect.height - 15;
+        }
+
         tooltip.style.left = x + 'px';
         tooltip.style.top = y + 'px';
-        tooltip.style.display = 'block';
     }
 
     hideTooltip() {
