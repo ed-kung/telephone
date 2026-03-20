@@ -179,6 +179,13 @@ header p {
     text-align: center;
 }
 
+.generation-count {
+    text-align: left;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
 #network-canvas {
     border: 1px solid #ddd;
     border-radius: 5px;

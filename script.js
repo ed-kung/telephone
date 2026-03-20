@@ -48,6 +48,8 @@ class TelephoneNetwork {
         document.getElementById('received-messages').innerHTML = '';
         document.getElementById('start-btn').style.display = '';
         document.getElementById('next-gen-btn').style.display = 'none';
+        document.getElementById('next-gen-btn').disabled = false;
+        document.getElementById('generation-count').textContent = 'Generations: 0';
         this.clearErrorTable();
         this.clearVariantTable();
     }
@@ -173,6 +175,7 @@ class TelephoneNetwork {
         });
 
         this.drawNetwork();
+        document.getElementById('generation-count').textContent = `Generations: ${this.currentGeneration}`;
         this.updateErrorDistribution();
         this.updateVariantDistribution();
 
