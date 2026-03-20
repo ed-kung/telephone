@@ -30,6 +30,7 @@ class TelephoneNetwork {
 
         document.getElementById('nodes-per-generation').addEventListener('input', () => this.validateKN());
         document.getElementById('connections').addEventListener('input', () => this.validateKN());
+        document.getElementById('message').addEventListener('input', () => this.validateMessage());
 
 
         this.canvas.addEventListener('click', (e) => this.handleCanvasClick(e));
@@ -43,6 +44,18 @@ class TelephoneNetwork {
         ids.forEach(id => {
             document.getElementById(id).disabled = !enabled;
         });
+    }
+
+    validateMessage() {
+        const message = document.getElementById('message').value.trim();
+        const wordCount = message.split(/\s+/).filter(w => w.length > 0).length;
+        const errorEl = document.getElementById('message-error');
+        if (wordCount > 50) {
+            errorEl.textContent = 'Maximum 50 words';
+            return false;
+        }
+        errorEl.textContent = '';
+        return true;
     }
 
     validateKN() {
@@ -100,7 +113,7 @@ class TelephoneNetwork {
     }
 
     startSimulation() {
-        if (!this.validateKN()) return;
+        if (!this.validateKN() || !this.validateMessage()) return;
         this.nodesPerGeneration = parseInt(document.getElementById('nodes-per-generation').value);
         this.connectionsPerNode = parseInt(document.getElementById('connections').value);
         this.originalMessage = document.getElementById('message').value;
