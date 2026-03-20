@@ -15,6 +15,7 @@ class TelephoneNetwork {
         this.started = false;
 
         this.setupEventListeners();
+        this.setupResizeObserver();
         this.loadFAQ();
     }
 
@@ -35,8 +36,43 @@ class TelephoneNetwork {
 
         this.canvas.addEventListener('click', (e) => this.handleCanvasClick(e));
         this.canvas.addEventListener('touchend', (e) => this.handleCanvasTouch(e));
+        this.canvas.addEventListener('touchstart', (e) => this.handleCanvasTouchStart(e));
         this.canvas.addEventListener('mousemove', (e) => this.handleCanvasHover(e));
         this.canvas.addEventListener('mouseleave', () => this.hideTooltip());
+    }
+
+    setupResizeObserver() {
+        this.resizeObserver = new ResizeObserver(() => {
+            if (this.started) {
+                this.updateCanvasSize();
+                this.repositionAllNodes();
+                this.drawNetwork();
+            } else {
+                this.updateCanvasSize();
+            }
+        });
+        this.resizeObserver.observe(this.canvas.parentElement);
+    }
+
+    repositionAllNodes() {
+        if (this.nodes.length === 0) return;
+
+        const canvasWidth = this.canvas.width;
+        const canvasHeight = this.canvas.height;
+        const margin = 50;
+        const totalGenerations = this.currentGeneration + 1;
+
+        for (const node of this.nodes) {
+            const gen = node.generation;
+            const nodesInGen = this.nodes.filter(n => n.generation === gen);
+            const indexInGen = nodesInGen.indexOf(node);
+            const count = nodesInGen.length;
+
+            node.y = margin + (gen * (canvasHeight - 2 * margin)) / Math.max(1, totalGenerations - 1);
+            node.x = count === 1
+                ? canvasWidth / 2
+                : margin + (indexInGen * (canvasWidth - 2 * margin)) / Math.max(1, count - 1);
+        }
     }
 
     setControlsEnabled(enabled) {
@@ -471,6 +507,26 @@ class TelephoneNetwork {
         const y = (event.clientY - rect.top) * scaleY;
 
         this.selectNodeAtPosition(x, y);
+    }
+
+    handleCanvasTouchStart(event) {
+        const rect = this.canvas.getBoundingClientRect();
+        const touch = event.touches[0];
+        const scaleX = this.canvas.width / rect.width;
+        const scaleY = this.canvas.height / rect.height;
+        const x = (touch.clientX - rect.left) * scaleX;
+        const y = (touch.clientY - rect.top) * scaleY;
+
+        const touchedNode = this.nodes.find(node => {
+            const distance = Math.sqrt(Math.pow(x - node.x, 2) + Math.pow(y - node.y, 2));
+            return distance <= 20;
+        });
+
+        if (touchedNode) {
+            this.showTooltip(touchedNode, { clientX: touch.clientX, clientY: touch.clientY });
+        } else {
+            this.hideTooltip();
+        }
     }
 
     handleCanvasTouch(event) {
