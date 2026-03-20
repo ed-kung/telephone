@@ -257,26 +257,53 @@ class TelephoneNetwork {
 
     corruptMessage(message) {
         const words = message.split(' ');
-        const corruptedWords = words.map(word => {
-            if (Math.random() < this.corruptionProbability) {
-                return this.corruptWord(word);
+
+        for (let idx = 0; idx < words.length; idx++) {
+            if (Math.random() >= this.corruptionProbability) continue;
+
+            const word = words[idx];
+            const corruptions = [];
+
+            // 1) Character deletion (only if word > 1 character)
+            if (word.length > 1) {
+                corruptions.push(() => {
+                    const i = Math.floor(Math.random() * word.length);
+                    words[idx] = word.slice(0, i) + word.slice(i + 1);
+                });
             }
-            return word;
-        });
 
-        return corruptedWords.join(' ');
-    }
+            // 2) Character replacement
+            corruptions.push(() => {
+                const i = Math.floor(Math.random() * word.length);
+                words[idx] = word.slice(0, i) + this.getRandomChar() + word.slice(i + 1);
+            });
 
-    corruptWord(word) {
-        const corruptions = [
-            () => word.slice(0, -1),
-            () => word + this.getRandomChar(),
-            () => word.split('').sort(() => 0.5 - Math.random()).join(''),
-            () => word.replace(/[aeiou]/g, this.getRandomChar())
-        ];
+            // 3) Character swap (only if word > 1 character)
+            if (word.length > 1) {
+                corruptions.push(() => {
+                    let i = Math.floor(Math.random() * word.length);
+                    let j = Math.floor(Math.random() * word.length);
+                    while (j === i) j = Math.floor(Math.random() * word.length);
+                    const chars = word.split('');
+                    [chars[i], chars[j]] = [chars[j], chars[i]];
+                    words[idx] = chars.join('');
+                });
+            }
 
-        const corruption = corruptions[Math.floor(Math.random() * corruptions.length)];
-        return corruption();
+            // 4) Word swap (only if more than 1 word)
+            if (words.length > 1) {
+                corruptions.push(() => {
+                    let otherIdx = Math.floor(Math.random() * words.length);
+                    while (otherIdx === idx) otherIdx = Math.floor(Math.random() * words.length);
+                    [words[idx], words[otherIdx]] = [words[otherIdx], words[idx]];
+                });
+            }
+
+            const corruption = corruptions[Math.floor(Math.random() * corruptions.length)];
+            corruption();
+        }
+
+        return words.join(' ');
     }
 
     getRandomChar() {
@@ -300,8 +327,9 @@ class TelephoneNetwork {
         const reconstructed = [];
         for (const position in wordFrequency) {
             const words = wordFrequency[position];
-            const mostFrequent = Object.keys(words).reduce((a, b) => words[a] > words[b] ? a : b);
-            reconstructed[position] = mostFrequent;
+            const maxCount = Math.max(...Object.values(words));
+            const tied = Object.keys(words).filter(w => words[w] === maxCount);
+            reconstructed[position] = tied[Math.floor(Math.random() * tied.length)];
         }
 
         return reconstructed.join(' ');

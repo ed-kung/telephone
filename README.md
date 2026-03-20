@@ -13,11 +13,11 @@ Like a telephone game, each node (player) receives messages from previous nodes 
 
 ## What happens to messages during transmission?
 
-Messages can be corrupted in several ways:
-- Letters removed from the end of words
-- Random letters added to words
-- Letters scrambled within words
-- Vowels replaced with random letters
+Each word in a message has an independent probability (p) of being corrupted. When a word is corrupted, one of four methods is chosen at random:
+- **Character deletion** - a random character is removed from the word (only if the word has more than one character)
+- **Character replacement** - a random character in the word is replaced with a different character
+- **Character swap** - two random characters in the word swap positions
+- **Word swap** - the word swaps positions with another random word in the message
 
 ## How do nodes reconstruct the message from multiple inputs?
 
@@ -31,11 +31,13 @@ Accuracy is the percentage of words at each word position that are the same as i
 
 This shows the error rate of the reconstructed messages at the last generation of nodes.
 
+## What is a "variant"?
+
+A variant is any unique message that gets transmitted between two nodes. Each unique message is counted as a single variant, so the original message is one variant, and every unique corruption of the message is its own variant.
+
 ## What is "Transmission Variant Error Distribution"?
 
-A transmission variant is any unique message that ever gets transmitted between two nodes. Each unique message is counted as a single variant, so the original message is a one variant, then every unique corruption of the message is its own variant.
-
-The transmission variant error distribution shows the number of unique variants ever transmitted, and the distribution of errors among those variants.
+This shows the total number of unique variants ever transmitted, and the distribution of word errors among those variants.
 
 ## Can I use my own message?
 
