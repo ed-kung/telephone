@@ -38,6 +38,13 @@ class TelephoneNetwork {
         this.canvas.addEventListener('mouseleave', () => this.hideTooltip());
     }
 
+    setControlsEnabled(enabled) {
+        const ids = ['nodes-per-generation', 'connections', 'corruption', 'message'];
+        ids.forEach(id => {
+            document.getElementById(id).disabled = !enabled;
+        });
+    }
+
     validateKN() {
         const n = parseInt(document.getElementById('nodes-per-generation').value);
         const k = parseInt(document.getElementById('connections').value);
@@ -87,6 +94,7 @@ class TelephoneNetwork {
         document.getElementById('next-gen-btn').style.display = 'none';
         document.getElementById('next-gen-btn').disabled = false;
         document.getElementById('generation-count').textContent = 'Generations: 0';
+        this.setControlsEnabled(true);
         this.clearErrorTable();
         this.clearVariantTable();
     }
@@ -99,6 +107,7 @@ class TelephoneNetwork {
 
         this.reset();
         this.started = true;
+        this.setControlsEnabled(false);
         this.updateCanvasSize();
 
         // Create generation 0 (source node)
