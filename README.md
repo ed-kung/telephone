@@ -7,7 +7,7 @@ This simulation models how messages degrade as they pass through a network of no
 Like a telephone game, each node (player) receives messages from previous nodes in the chain, then they try to reconstruct the original message as best they can, then they forward their reconstructed message to the next nodes in the chain.
 
 - **Nodes per generation (N)**: How many nodes exist at each level (except the first, which always has 1 node)
-- **Connections per node (K)**: How many nodes each node transmits their message to in the next generation
+- **Transmissions per node (K)**: How many nodes each node transmits their message to in the next generation
 - **Corruption probability (p)**: The likelihood that each word gets corrupted during transmission
 
 ## What happens to messages during transmission?
