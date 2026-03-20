@@ -25,7 +25,7 @@ class TelephoneNetwork {
 
         document.getElementById('corruption').addEventListener('input', (e) => {
             this.corruptionProbability = parseFloat(e.target.value);
-            document.getElementById('corruption-value').textContent = this.corruptionProbability;
+            document.getElementById('corruption-value').textContent = this.corruptionProbability.toFixed(2);
         });
 
 

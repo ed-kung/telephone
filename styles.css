@@ -95,6 +95,7 @@ header p {
 
 .control-group input[type="range"] {
     width: 150px;
+    padding: 0;
 }
 
 .message-group {
