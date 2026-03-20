@@ -28,11 +28,46 @@ class TelephoneNetwork {
             document.getElementById('corruption-value').textContent = this.corruptionProbability.toFixed(2);
         });
 
+        document.getElementById('nodes-per-generation').addEventListener('input', () => this.validateKN());
+        document.getElementById('connections').addEventListener('input', () => this.validateKN());
+
 
         this.canvas.addEventListener('click', (e) => this.handleCanvasClick(e));
         this.canvas.addEventListener('touchend', (e) => this.handleCanvasTouch(e));
     }
 
+    validateKN() {
+        const n = parseInt(document.getElementById('nodes-per-generation').value);
+        const k = parseInt(document.getElementById('connections').value);
+        const nError = document.getElementById('n-error');
+        const kError = document.getElementById('k-error');
+        let valid = true;
+
+        if (n < 1) {
+            nError.textContent = 'N must be at least 1';
+            valid = false;
+        } else if (n > 20) {
+            nError.textContent = 'N cannot be greater than 20';
+            valid = false;
+        } else {
+            nError.textContent = '';
+        }
+
+        if (k < 1) {
+            kError.textContent = 'K must be at least 1';
+            valid = false;
+        } else if (k > 20) {
+            kError.textContent = 'K cannot be greater than 20';
+            valid = false;
+        } else if (k > n) {
+            kError.textContent = 'K cannot be greater than N';
+            valid = false;
+        } else {
+            kError.textContent = '';
+        }
+
+        return valid;
+    }
 
     reset() {
         this.nodes = [];
@@ -55,6 +90,7 @@ class TelephoneNetwork {
     }
 
     startSimulation() {
+        if (!this.validateKN()) return;
         this.nodesPerGeneration = parseInt(document.getElementById('nodes-per-generation').value);
         this.connectionsPerNode = parseInt(document.getElementById('connections').value);
         this.originalMessage = document.getElementById('message').value;
@@ -87,6 +123,7 @@ class TelephoneNetwork {
 
     addGeneration() {
         if (!this.started || this.currentGeneration >= this.maxGenerations) return;
+        if (!this.validateKN()) return;
 
         this.currentGeneration++;
         this.nodesPerGeneration = parseInt(document.getElementById('nodes-per-generation').value);
