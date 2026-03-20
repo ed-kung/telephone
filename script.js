@@ -34,6 +34,8 @@ class TelephoneNetwork {
 
         this.canvas.addEventListener('click', (e) => this.handleCanvasClick(e));
         this.canvas.addEventListener('touchend', (e) => this.handleCanvasTouch(e));
+        this.canvas.addEventListener('mousemove', (e) => this.handleCanvasHover(e));
+        this.canvas.addEventListener('mouseleave', () => this.hideTooltip());
     }
 
     validateKN() {
@@ -362,6 +364,44 @@ class TelephoneNetwork {
         if (accuracy >= 0.5) return '#FFC107';
         if (accuracy >= 0.2) return '#FF9800';
         return '#F44336';
+    }
+
+    handleCanvasHover(event) {
+        const rect = this.canvas.getBoundingClientRect();
+        const scaleX = this.canvas.width / rect.width;
+        const scaleY = this.canvas.height / rect.height;
+        const canvasX = (event.clientX - rect.left) * scaleX;
+        const canvasY = (event.clientY - rect.top) * scaleY;
+
+        const hoveredNode = this.nodes.find(node => {
+            const distance = Math.sqrt(Math.pow(canvasX - node.x, 2) + Math.pow(canvasY - node.y, 2));
+            return distance <= 20;
+        });
+
+        if (hoveredNode) {
+            this.showTooltip(hoveredNode, event);
+        } else {
+            this.hideTooltip();
+        }
+    }
+
+    showTooltip(node, event) {
+        const tooltip = document.getElementById('node-tooltip');
+        const vizRect = this.canvas.parentElement.getBoundingClientRect();
+        const x = event.clientX - vizRect.left + 15;
+        const y = event.clientY - vizRect.top + 15;
+
+        const accuracy = (node.accuracy * 100).toFixed(1);
+        const message = node.message || 'No message';
+        const color = this.getNodeColor(node.accuracy);
+        tooltip.innerHTML = `${message}<div class="tooltip-accuracy" style="color:${color}">Accuracy: ${accuracy}%</div>`;
+        tooltip.style.left = x + 'px';
+        tooltip.style.top = y + 'px';
+        tooltip.style.display = 'block';
+    }
+
+    hideTooltip() {
+        document.getElementById('node-tooltip').style.display = 'none';
     }
 
     handleCanvasClick(event) {

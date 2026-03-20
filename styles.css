@@ -183,6 +183,30 @@ header p {
     padding: 20px;
     margin-bottom: 20px;
     text-align: center;
+    position: relative;
+}
+
+.node-tooltip {
+    display: none;
+    position: absolute;
+    background: rgba(44, 62, 80, 0.95);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: monospace;
+    max-width: 300px;
+    word-wrap: break-word;
+    pointer-events: none;
+    z-index: 10;
+    line-height: 1.4;
+}
+
+.node-tooltip .tooltip-accuracy {
+    color: #2ecc71;
+    font-weight: bold;
+    margin-top: 4px;
+    font-family: Arial, sans-serif;
 }
 
 .generation-count {
